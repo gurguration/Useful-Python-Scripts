@@ -1,12 +1,13 @@
-
+#!/usr/bin/python3
 from threading import Thread
 from queue import Queue
 import time
 import requests
+from tqdm import tqdm
+import math
 
-urls = ['https://google.com', 'https://google.com',
-        'https://google.com', 'https://google.com',
-        'https://google.com', 'https://google.com']
+
+urls = open('links.txt').readlines()
 
 
 class Threader(Thread):
@@ -22,15 +23,19 @@ class Threader(Thread):
             self.queue.task_done()
 
     def download_worker(self, url_inqueue):
-        start = time.time()
-        response = requests.get(url_inqueue)
-        end = time.time()
+        response = requests.get(url_inqueue, stream=True)
         if response.status_code == 200:
-            time_taken = start - end
-            print('it took {} time to server your request'.format(time_taken))
-            print(response.content)
-
-
+            total_filelen = int(response.headers.get('Content-Length', 0))
+            block_size = 1024 * 3
+            written_size = 0
+            file_name = response.headers.get('X-File-Name')
+            print(file_name)
+            with open(file_name, 'wb') as file:
+                for data in tqdm(response.iter_content(block_size),
+                        total=(total_filelen//block_size), unit='KB',unit_scale=True):
+                    written_size += len(data)
+                    file.write(data)
+           
 class Download:
     def __init__(self, num_ofthreads=3):
         self.num_ofthreads = num_ofthreads
