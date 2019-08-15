@@ -1,0 +1,22 @@
+import os
+
+
+curr_path = os.getcwd()
+abs_path = os.path.abspath(curr_path)
+user_dir = os.path.expanduser('guga.rukhadze')
+real_path = os.path.realpath('threaded_downloader.py')
+rel_path = os.path.relpath('threaded_downloader.py')
+dir_size = os.path.getsize(curr_path)
+dir_name = os.path.dirname(curr_path)
+split_path = os.path.split(curr_path)
+base_name = os.path.basename(curr_path)
+split_text = os.path.splitext(real_path)
+print(curr_path)
+print(abs_path)
+print(base_name)
+print(dir_name)
+print(dir_size)
+print(real_path)
+print(rel_path)
+print(split_path)
+print(split_text)
