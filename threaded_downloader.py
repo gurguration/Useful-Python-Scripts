@@ -7,7 +7,7 @@ from tqdm import tqdm
 import math
 
 
-urls = open('links.txt').readlines()
+urls = open('links.txt').read().splitlines()
 
 
 class Threader(Thread):
