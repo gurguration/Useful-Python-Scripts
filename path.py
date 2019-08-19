@@ -3,7 +3,7 @@ from pathlib import Path, PurePath
 import webbrowser
 import glob
 import shutil
-import colection
+import collections
 
 '''
 links used:
