@@ -3,6 +3,14 @@ from pathlib import Path, PurePath
 import webbrowser
 import glob
 import shutil
+import coolection
+
+'''
+links used:
+    https://realpython.com/python-pathlib/
+    https://github.com/chris1610/pbpython/blob/master/extras/Pathlib-Cheatsheet.pdf
+    https://riptutorial.com/python/example/978/file-modes
+'''
 
 file_name = r'python_course\threaded_downloader.py'
 curr_path = os.getcwd()
@@ -63,3 +71,40 @@ folderin_home = Path.home().joinpath('myfolder', 'backup')
 print(folderin_home)
 print(type(folderin_home))  # Either WindowsPath or PosixPath (on linux/mac)
 
+
+# READING AND WRITING FILES
+# Find all the comments in python file.
+
+path = Path.cwd() / r'pathes.py'
+
+with open(path, 'r') as fid:
+    comments = [line.strip() for line in fid if line.startswith('#')]
+
+print('\n'.join(comments))
+
+# ALTERNATIVE WAY CALL OPEN DIRECTLY ON PATH OBJECT. IT'S CALLING THE SAME built-in OPEN()
+
+print()
+
+with path.open(mode='r') as fid:
+    comments = [line.strip() for line in fid if line.startswith('#')]
+
+print('\n'.join(comments))
+
+read_file = current_dir / 'pathes.py'
+contents = read_file.read_text()
+# print(contents)
+
+resolved_fullpath = read_file.resolve()
+parent = current_dir.parent  # parent returns path object other methods - string
+new_file = current_dir.parent.parent / ('new' + fileto_open.suffix)
+
+
+read_file = Path('pathes.py')  # Same as above: uses relative path
+contents = read_file.read_text()
+print(contents)
+print(resolved_fullpath)
+print(parent)
+print(parent.anchor)
+print(parent.name)
+print(new_file)
