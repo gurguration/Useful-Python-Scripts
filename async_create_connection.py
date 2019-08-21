@@ -36,3 +36,4 @@ async def main():
         wsock.close()
 
 asyncio.run(main())
+
